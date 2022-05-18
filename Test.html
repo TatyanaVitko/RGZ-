@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Тест от Витько Татьяны</title>
+    <link href="main.css" rel="stylesheet">
+</head>
+
+<body onload="loaded()">
+    <header>
+        <h1 >Тест на знания: «да» или «нет»?
+         <p>20 не самых очевидных вопросов, ответы на которые вас удивят</p></h1>
+        <h3> Чем меньше вариантов ответа, тем легче ответить на вопрос, не так ли? 
+        <p>Но только не здесь: вопросы подобрались настолько заковыристые, что без глубоких раздумий с ними не разобраться. </p>
+        <p>Посмотрим на твой результат! </p> </h3> 
+    </header>
+
+<div class = "testform" >
+    <center>
+        <form id="forma" >
+        <label>
+            Вопрос:
+            <textarea disabled="disabled" name="question" data-id="0"></textarea>
+        </label>
+        <br>
+        <label>
+            Ответ:
+            <p> Вариант 1<label><input type="radio" name="answer" value="Да"> Да</label>
+            <p> Вариант 2<label><input type="radio" name="answer" value="Нет"> Нет</label>
+        </label>
+        <br>
+        <p> <button name="btn">Дальше</button>
+    </form>
+</center>
+</div>
+    <script type="text/javascript">
+                
+        let data = [
+            ["Вопрос 1. В 2014 году Аральское море полностью высохло?", "Нет"],
+            ["Вопрос 2. На самом деле Наполеон Бонапарт был ростом около 180 сантиметров?", "Нет"],
+            ["Вопрос 3. Политика самоизоляции началась в Японии в эпоху Эдо?", "Да"],
+            ["Вопрос 4. К началу Первой мировой войны в Африке не было ни одного независимого государства?", "Нет"],
+            ["Вопрос 5. В 60–80-х годах курс доллара составлял меньше одного рубля?", "Да"],
+            ["Вопрос 6. В 1935 году Нобелевской премией мира был награжден человек из Третьего рейха?", "Да"],
+            ["Вопрос 7. Первым программистом в истории считается женщина?", "Нет"],
+            ["Вопрос 8. Рибосомы – это органеллы клетки, в которых образуется энергия, необходимая для существования организма?", "Нет"],
+            ["Вопрос 9. Российский город Дербент древнее египетского Каира?", "Да"],
+            ["Вопрос 10. Период творчества Пабло Пикассо в Барселоне называется «розовым»?", "Нет"],
+            ["Вопрос 11. Первую железную дорогу общественного пользования, рассчитанную на паровозы, построили в США?", "Нет"],
+            ["Вопрос 12. Эдвард Дженнер открыл пенициллин и его целебные свойства в начале XX века?", "Нет"],
+            ["Вопрос 13. Чтобы построить Дворец Советов, увенчанный 100-метровой статуей Ленина, советские власти взорвали храм Христа Спасителя?", "Да"],
+            ["Вопрос 14. Король Англии Генрих VIII известен тем, что много раз был женат и довольно жестоко обращался со своими женами. На самом же деле крутой нрав короля — всего лишь миф, ни одну из своих жен он не убивал?", "Нет"],
+            ["Вопрос 15. Фавелами называют трущобы в Бразилии?", "Да"],
+            ["Вопрос 16. В мире 6 океанов?", "Нет"],
+            ["Вопрос 17. Капитана Немо придумал Жюль Верн?", "Да"],
+            ["Вопрос 18. Мандолина – это фрукт?", "Нет"],
+            ["Вопрос 19. Керамическая кружка сделана из глины?", "Да"],
+            ["Вопрос 20. На земном шаре 24 часовых пояса?", "Да"]
+        ];
+ 
+        let headers = ["Вопросы", "Верные ответы", "Ваши ответы"];
+        let answers = [];
+        let rightAnswers = null;
+ 
+        let form = document.getElementById("forma");
+        let question = form.question;
+        let answer = form.answer;
+        let btn = form.btn;
+ 
+        question.value = data[question.dataset.id++][0];
+ 
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (answer.value === "") return false;
+            answers.push(answer.value);
+            answer.value = "";
+            if(+question.dataset.id === data.length) {
+                form.style.display = "none";
+                rightAnswers = answers.map((elm, i) => elm === data[i][1] ? i : undefined).filter(elm => elm !== undefined);
+                document.body.append(show(data, headers, answers, rightAnswers));
+                return false;
+            }
+            question.value = data[question.dataset.id++][0];
+            answer.focus();
+        });
+ 
+        function show(data, headers, answers, rightAnswers) {
+            let table = document.createElement("table");
+            table.setAttribute("id", "tbl");
+ 
+            let tr = document.createElement("tr");
+            for (let i = 0; i < headers.length; i++) {
+                let td = document.createElement("th");
+                td.innerHTML = headers[i];
+                tr.append(td);
+            }
+ 
+            table.append(tr);
+ 
+            for (let i = 0; i < data.length; i++) {
+                let tr = document.createElement("tr");
+                for (let j = 0; j < data[i].length + 1; j++) 
+                {
+                    let td = document.createElement("td");
+                    if (j === headers.length-1) 
+                    { 
+                        if(rightAnswers.includes(i)) td.classList.add("right");
+                        else td.classList.add("error");
+                        td.innerHTML = answers[i];
+                    } else 
+                    {
+                        td.innerHTML = data[i][j];    
+                    }
+                    tr.append(td);
+                }
+                table.append(tr);
+            }
+            return table;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+html, body { 
+    height: 200px;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+    text-align: center;}
+
+
+header h1 {
+    background-color: rgba(255, 0, 238, 0.227);
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 20px 0 20px 15px;
+}
+
+header h3 {
+    font-weight:normal;
+}
+
+label {
+    font-weight:normal;
+    font-size: 1.1rem;
+}
+
+#tbl {
+    text-align: center;
+    color: black;
+}
+
+#forma {
+    width: 405px;
+    background: rgba(255, 0, 238, 0.368);
+    text-align: center;
+    margin:10px 0;
+    border-radius:10px;
+}
+
+#forma textarea {
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 100px;
+    max-height: 100px;
+    background: white;
+    color: black;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.1rem;
+    margin:10px 0;
+}
+
+#forma button {
+    width:100%;
+    background: rgba(231, 221, 231, 0.301);
+    color: white;
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.1rem;
+    padding:10px;
+    border:none;
+    font-weight:600;
+    border-radius:5px;
+}
+
+#forma button:hover { background: rgba(145, 33, 147, 0.456); }
+
+#forma button:active {
+    background: rgba(145, 33, 147, 0.688);
+    box-shadow: 0 3px rgba(145, 33, 147, 0.688) inset;
+  }
+
+.error {
+    color: red;
+}
+
+.right {
+    color: green;
+}
+
